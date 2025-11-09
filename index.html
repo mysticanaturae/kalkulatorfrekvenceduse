@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="sl">
+<head>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#b35c00">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kalkulator Frekvence Duše</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap');
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #fff4e6;
+    color: #5a3e1b;
+    margin: 0;
+    padding: 20px;
+}
+
+/* GLAVNI CONTAINER ZA TRESLOVCE */
+.container {
+    display: flex;
+    justify-content: center;
+    gap: 30px; /* presledek med stolpci */
+    flex-wrap: wrap;
+}
+
+/* STOLPCI */
+.column {
+    background-color: #ffe6cc;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    flex: 1;
+    min-width: 250px;
+    box-sizing: border-box;
+}
+
+/* LEVI IN DESNI STOLPEC TEKST */
+.column h3 {
+    font-family: 'Great Vibes', cursive;
+    color: #b35c00;
+    margin-bottom: 10px;
+}
+.column p {
+    margin-bottom: 10px;
+    line-height: 1.5;
+}
+
+/* KALKULATOR */
+.calculator h1 {
+    text-align: center;
+    font-family: 'Great Vibes', cursive;
+    font-size: 36px;
+    color: #b35c00;
+    margin-bottom: 5px;
+}
+.calculator h2 {
+    text-align: center;
+    color: #804000;
+    font-size: 16px;
+    margin-bottom: 20px;
+}
+label {
+    font-weight: bold;
+}
+input[type="text"], input[type="date"], input[type="email"] {
+    width: 100%;
+    padding: 10px;
+    margin: 7px 0;
+    border-radius: 8px;
+    border: 1px solid #b35c00;
+    font-size: 14px;
+    box-sizing: border-box;
+}
+button {
+    width: 100%;
+    padding: 12px;
+    margin: 12px 0;
+    border-radius: 8px;
+    border: none;
+    background-color: #ffb366;
+    color: #5a3e1b;
+    font-weight: bold;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+button:hover { background-color: #ffaa33; }
+.result {
+    margin-top: 20px;
+    background-color: #fff0e0;
+    padding: 20px;
+    border-radius: 12px;
+    text-align: center;
+    opacity: 0;
+    transform: translateY(-20px);
+    transition: all 0.5s ease-in-out;
+}
+.result.show { opacity: 1; transform: translateY(0); }
+.kin-number { font-size: 18px; color: #d1642b; }
+.frequency { font-size: 16px; margin-bottom: 10px; }
+.result img.number-img, .result img.sign-img { width: 50px; height: 50px; margin: 10px auto; display: block; }
+.gdpr { margin-top: 10px; font-size: 13px; }
+.gdpr input { margin-right: 5px; }
+</style>
+</head>
+<body>
+
+<div class="container">
+    <!-- LEVI STOLPEC -->
+    <div class="column">
+        <h3>Kaj je Kalkulator Zavest Duše?</h3>
+        <p>Ta kalkulator temelji na starodavni Tzolkin Matriki časa 13:20, zavesti in energijah, ki ustvarjajo tebe in svet, v katerem živiš. Omogoča ti, da spoznaš svojo osebno vibracijo in frekvenco ali zavest, KIN, in pomen znamenja (vibracija) ter števila (frekvenca), ki določata tvoj kozmičen potencial.</p>
+        <p>Starodavni nekoč so bili prepričani, da če posameznik ne pozna svoje rojstne energije, je izgubljen v etru kozmosa. In če pogledaš današnjo civilizacijo, lahko vidiš, da vsi nekaj iščemo, pa menjamo službe, družbe, bivanje, prijatelje in partnerje, samo zato, da bi lahko resnično našli "sebe".</p>
+        <p>Zdaj ti ni potrebno nič več iskati, ker vse, kar potrebuješ, že imaš v sebi. Samo spomniti se, kdo si, zakaj si tukaj in od kod prihajaš ter kam greš.</p>
+    </div>
+
+    <!-- SREDINSKI STOLPEC: KALKULATOR -->
+    <div class="column calculator">
+        <h1>Kalkulator Frekvence Duše</h1>
+        <h2>Portal Časovne Tzolkin Matrike</h2>
+        <label for="fullName">Polno ime:</label>
+        <input type="text" id="fullName" placeholder="Vpiši svoje ime" required>
+        <label for="birthDate">Datum rojstva:</label>
+        <input type="date" id="birthDate" required>
+        <label for="email">E-naslov:</label>
+        <input type="email" id="email" placeholder="vnesi svoj e-naslov" required>
+        <div class="gdpr">
+            <input type="checkbox" id="gdprConsent">
+            <label for="gdprConsent">Soglašam, da se moji podatki uporabljajo za izračun frekvence duše.</label>
+        </div>
+        <button onclick="calculateSoulFrequency()">Ustvari Branje</button>
+        <div id="result" class="result"></div>
+    </div>
+
+    <!-- DESNI STOLPEC -->
+    <div class="column">
+        <h3>Kako deluje?</h3>
+        <p>Kalkulator pretvori tvoj datum rojstva v KIN številko in določeno znamenje Tzolkin matrike. Na podlagi tega prejmeš osebno razlago števila in znamenja, ki vodi tvoje življenjske cikle, moč in intuicijo.</p>
+        <p>Vnesi svoje ime, datum rojstva in e-naslov. Rezultat vključuje tvojo številko, znak in kratko razlago energije, ki jo nosiš.</p>
+        <p>Rezultati so namenjeni tvojemu notranjemu vodenju, samospoznanju evoluciji in raziskovanju tvojega duhovnega potenciala.</p>
+        <p>Za bolj poglobljeno raziskovanje si naroči svojo personalizirano digitalno knjigo Tzolkin oz. serijo digitalnih knjig Drevo Življenja, Val Časa, Dnevi Požiga, Pot Pernate Kače, narejene posebej in samo zate.</p>
+        <p>Pridruži se nam spodaj pri ustvarjanju Galaktičnega Metulja.</p>
+    </div>
+</div>
+
+<script>
+// SHRANJEVANJE EMAILOV
+function saveEmail(email) {
+    let savedEmails = JSON.parse(localStorage.getItem("emails")) || [];
+    if (!savedEmails.includes(email)) {
+        savedEmails.push(email);
+        localStorage.setItem("emails", JSON.stringify(savedEmails));
+    }
+}
+
+// IZRAČUN TZOLKIN KIN
+function calculateTzolkinKin(dateInput) {
+    var dateParts = dateInput.split("-");
+    var date = new Date(Date.UTC(parseInt(dateParts[0]), parseInt(dateParts[1]) - 1, parseInt(dateParts[2])));
+    var refDate = new Date(Date.UTC(1800, 0, 1));
+    var refKin = 114;
+    var msPerDay = 1000 * 60 * 60 * 24;
+    var daysSince = Math.floor((date - refDate) / msPerDay);
+    var kin = ((refKin - 1 + daysSince) % 260 + 260) % 260 + 1;
+    return kin;
+}
+
+// PODATKI
+const tzolkinSigns = [ "Imix (Krokodil)","Ik’ (Veter)","Akbal (Noč)","Kan (Seme)","Chicchan (Kača)","Cimi (Smrt)","Manik’ (Jelen)","Lamat (Zvezda)","Muluk (Voda)","Ok (Pes)","Chuwen (Opica)","Eb (Človek)","Ben (Trs)","Ix (Jaguar)","Men (Orel)","Cib (Jastreb)","Caban (Zemlja)","Etz’nab (Kremen)","Kawak (Nevihta)","Ajaw (Sonce)" ];
+
+const tzolkinSignImages = [ "https://static.wixstatic.com/media/7535eb_8b15827f3f0749f58b47edf2ec8ff34a~mv2.png", "https://static.wixstatic.com/media/7535eb_da5c22d0b20c4650ae78bd78d44bdf90~mv2.png", "https://static.wixstatic.com/media/7535eb_1431fb4ee97a418383209553a73974e5~mv2.png", "https://static.wixstatic.com/media/7535eb_63fa92348cef45778a33ea8df474f3b8~mv2.png", "https://static.wixstatic.com/media/7535eb_b144e80ceccc4304b10027e8d2f1e674~mv2.png", "https://static.wixstatic.com/media/7535eb_9eda107ea6ed46e8880d6cd3394b3eca~mv2.png", "https://static.wixstatic.com/media/7535eb_498008e2e9fb4c7ebc66e4a2cf25a1d4~mv2.png", "https://static.wixstatic.com/media/7535eb_a86c9fe89c5f4f4d8a810c284e40bf13~mv2.png", "https://static.wixstatic.com/media/7535eb_b1612f1d298245a483212ca3997b6872~mv2.png", "https://static.wixstatic.com/media/7535eb_fcf459036d31451fb913cd556bdf98b1~mv2.png", "https://static.wixstatic.com/media/7535eb_c5e4c01f59e74424806a8b82d55ea9c9~mv2.png", "https://static.wixstatic.com/media/7535eb_8b1bd5f0bebf4e9e84734d0dd7c18a55~mv2.png", "https://static.wixstatic.com/media/7535eb_5a43cbda692c4bff8790b8d4fe769ec5~mv2.png", "https://static.wixstatic.com/media/7535eb_891ac2c5109f44c8927f69170b93aa78~mv2.png", "https://static.wixstatic.com/media/7535eb_bcc1d28cea634696895554c9f25a2788~mv2.png", "https://static.wixstatic.com/media/7535eb_acd453dcd54e4ca29483cb610e3bab2e~mv2.png", "https://static.wixstatic.com/media/7535eb_d413aa3902864a09a3c2bb1ae2996b53~mv2.png", "https://static.wixstatic.com/media/7535eb_57d9eafe0dd249ddb5194e43a629e516~mv2.png", "https://static.wixstatic.com/media/7535eb_413ee006283f479dbb46cc737b796bb4~mv2.png", "https://static.wixstatic.com/media/7535eb_18fc81a965aa4e69974f11d5bb68dc60~mv2.png" ];
+
+const tzolkinNumbers = [
+"1 – Semena novih začetkov: nosiš energijo iniciacije in iskre življenja. Sprejmi svojo ustvarjalno moč in naredi prvi korak.",
+"2 – Dvojnost in partnerstvo: ravnovesje in harmonija sta tvoja vodnika. Uči se povezovanja in sodelovanja.",
+"3 – Ustvarjalnost in izražanje: blagoslovljen si z domišljijo in močjo izražanja duše.",
+"4 – Stabilnost in temelji: struktura in disciplína ti prinašata uspeh.",
+"5 – Svoboda in sprememba: tvoja duša išče gibanje in raznolikost.",
+"6 – Skrb in odgovornost: nosiš energijo sočutja. Ljubi, a ne pozabi nase.",
+"7 – Notranji uvid: čas je za razmislek in meditacijo.",
+"8 – Moč in obilje: mojstrstvo in dosežki te čakajo.",
+"9 – Zaključek in modrost: zaključuj cikle in deli znanje.",
+"10 – Manifestacija in uspeh: tvoja dejanja se uresničujejo.",
+"11 – Vizija in navdih: tvoje notranje vodenje je darilo.",
+"12 – Preobrazba in prenova: spreminjaš se v svetlobo.",
+"13 – Zaključek ciklov in transcendenca: v tebi se prepleta kozmična modrost in prebujenje duha."
+];
+
+const tzolkinNumberImages = [
+"https://static.wixstatic.com/media/7535eb_8128aa403fb34a39a9abf4c539e07d4e~mv2.png",
+"https://static.wixstatic.com/media/7535eb_58d9713024fd44e3b574ed6e66319df3~mv2.png",
+"https://static.wixstatic.com/media/7535eb_fa772de6b389412a874060866aafe0d0~mv2.png",
+"https://static.wixstatic.com/media/7535eb_034123a9c80d497da70e29c529f761ab~mv2.png",
+"https://static.wixstatic.com/media/7535eb_0949be53659a4112b79aeaf88fba4182~mv2.png",
+"https://static.wixstatic.com/media/7535eb_31c0710a2c40451c8be0474fca598690~mv2.png",
+"https://static.wixstatic.com/media/7535eb_abc754938a3c47e5a3b497a802fbbc09~mv2.png",
+"https://static.wixstatic.com/media/7535eb_a195a39082484f0eafd271594204fd99~mv2.png",
+"https://static.wixstatic.com/media/7535eb_62f1b1f66190462faf5af9be6f04e3f3~mv2.png",
+"https://static.wixstatic.com/media/7535eb_630ea6308de14ff089b351e4f1967594~mv2.png",
+"https://static.wixstatic.com/media/7535eb_b098132554904e4d8d689176145249a0~mv2.png",
+"https://static.wixstatic.com/media/7535eb_6cf0d4b4439a46eb952d52e6cd02bb28~mv2.png",
+"https://static.wixstatic.com/media/7535eb_a5b6f5b75b254f1ca65fbe7cafb8086e~mv2.png"
+];
+
+// TVOJI PODROBNI OPISI
+const tzolkinSignDescriptions = [
+"Imix (Krokodil) 🌊 Energija začetkov, vode in stvarstva. Imix je prva iskra stvarstva, kozmična maternica, iz katere se rodi vse življenje. Predstavlja začetek, instinkt, in notranjo moč preživetja. V tebi prebudi praiskonski spomin na izvor – tisti trenutek, ko se zavest prvič zave sebe. Dan Krokodila te uči, da zaupaš svojemu instinktu in prisluhneš telesu. Ustvari temelje za novo stvaritev, neguj svoje korenine in spoštuj prvinsko življenje v sebi. Si izvir življenja, intuicije in novih ciklov. 💫 Za osebno Tzolkin knjigo klikni in naroči zdaj.", "Ik’ (Veter) 🌬 Dih navdiha, komunikacije in gibanja. Ik’ je dih duha, božanski vdih in izdih, ki oživlja vse, kar obstaja. To je sveti dih komunikacije, resnice in božanskega prenosa. Duh vetra te spodbuja, da izraziš svojo resnico z milino, a tudi s pogumom. Govori, piši, poj – izrazi, kar teče skozi tebe, kajti tvoj glas je orodje zdravljenja sveta. Ik’ te uči poslušati glas vesolja. 💫 Spoznaj svojo pot v osebni knjigi Tzolkin.", "Akbal (Noč) 🌌 Varuh sanj in skrivnosti. Ak’bal odpira vrata med svetovi. Je tema, iz katere se rodi svetloba. Prinaša sanje, skrivnosti in notranji mir. Je čas, da se obrneš vase in z zaupanjem stopiš v tišino, kjer tvoj notranji svet spregovori. Noč te uči, da so tvoje sanje zemljevid tvoje duše – da so vrata v tvojo lastno svetiščino. Akbal osvetli tvojo notranjo temo. 💫 Za celotno branje naroči svojo e-knjigo.", "Kan (Seme) 🌱 Energija rasti in manifestacije. Kan je seme življenja, ustvarjalna moč narave. Predstavlja plodnost, potencial in rast. V tebi je seme svetlobe, ki čaka na pravi trenutek, da se prebudi. Dan Koruze te vabi, da neguješ svoje namene z ljubeznijo, potrpežljivostjo in zaupanjem v proces. Vse, kar poseješ, se bo nekoč razcvetelo. V tebi spi potencial stvarjenja. 💫 Prebudi ga v osebnem branju.", "Chicchan (Kača) 🐍 Življenjska sila, preobrazba in moč. Chicchan je življenjska energija – kundalini, svetloba, ki se dviga skozi tvojo hrbtenico. Je instinktivna, čutna in preobrazbena. Kača te uči, da se spustiš v telo in začutiš življenje v vsej njegovi moči. Prebuja vitalnost, strast in modrost telesa. V njej se skriva preobrazba – stara koža se naj zlevi, da se rodi nova resnica. 💫 Odkleni svojo energijo v osebni Tzolkin knjigi. Naroči jo zdaj", "Cimi (Smrt) 💀 Prehod, osvoboditev, preporod. 💫 Cimi je mojster prehoda, spremembe in ponovnega rojstva. Simbolizira konec, ki je le začetek novega cikla. Uči te, da spustiš, kar ni več tvoje, da lahko svobodno vstopiš v naslednjo fazo svoje duše. V smrti ni teme, le preobrazba. Cimi te spomni, da je življenje neskončno in da se vse rojeva znova. Rodi se znova – tvoja knjiga Tzolkin te vodi.", "Manik’ (Jelen) 🦌 Zdravljenje, narava, ravnovesje. Manik’ nosi moč zdravilca in mirnega bojevnika. Njegova srčna moč je sočutje in nežna vztrajnost. Jelen je tisti, ki zdravi z dotikom, s prisotnostjo, z odprtim srcem. Povezuje zemljo in nebo skozi sveto delo. Dnevi Jelena te spominjajo, da si tudi ti zdravilec – skozi svoje roke, besede in namen. 💫 Odkrij več v osebni knjigi Tzolkin.", "Lamat (Zvezda) ⭐ Lepota, harmonija, umetnost. Lamat je kozmična lepota, svetloba, ki se množi. Je simbol plodnosti, umetnosti in harmonije. Zvezda te uči, da si ustvarjalno bitje – da tvoj sij sije daleč preko časa. Tvoje delo, tvoje misli, tvoja lepota so žarek, ki zdravi. Neguj umetnost življenja in bodi zvezda, ki navdihuje druge. 💫 Naroči svojo osebno e-knjigo.", "Muluk (Voda) 💧 Čustva, intuicija, očiščenje. Muluc je sveta voda – čustva, očiščenje, darovanje. Voda te povezuje s spominom na sveti krog življenja, z močjo sočutja in hvaležnosti. Uči te, da solze niso šibkost, temveč blagoslov. Daj, kar si prejel, in sprejmi, kar ti življenje vrača. Pretok čustev je zdravilo za dušo. 💫 Razumi svoj tok v osebnem branju.", "Ok (Pes) 🐕 Ljubezen, zvestoba, srce. Oc je zvestoba, ljubezen in srčna resnica. Je varuh prijateljstva in čistega odnosa med ljudmi. Pes te uči brezpogojne ljubezni, odanosti in integritete. V njem prebiva zvesti duh, ki te vodi skozi pot srca. Vztrajaj v ljubezni – tudi, ko svet pozabi na nežnost. 💫 Naroči svojo osebno knjigo duše.", "Chuwen (Opica) 🙈 Ustvarjalnost, humor, igra. Chuen je božanska umetnica, otrok vesolja in tkalka časa. V njenih rokah so niti stvarstva, ki jih prepleta s smehom, igro in ustvarjalnostjo. Opica te spomni, da življenje ni boj, temveč ples radosti. Uči te igrivosti, spontanosti in modrosti trenutka. Ko se zasmejiš sebi, postaneš svoboden, ko ustvarjaš iz srca – si v stiku z Bogom v sebi.💫 Tvoja knjiga Tzolkin te čaka. Naorči jo zdaj. ", "Eb (Človek) 🧍‍♂️ Zavest, svobodna volja, pot. Eb je sveta pot življenja, cesta, po kateri hodi tvoja duša. Predstavlja človeško izkušnjo – radost, preizkušnje, rast in prebuditev. Uči te, da je tvoja pot sveta in da vsaka stopinja nosi modrost. Eb te vabi, da hodiš z odprtim srcem in zavedanjem, da si popotnik med svetovi. Vsaka tvoja odločitev ustvarja prihodnost človeštva. 💫 Odkleni svojo pot v osebni e-knjigi.", "Ben (Trs) 🌾 Rast, vizija, usmerjenost. Ben je steber svetlobe, povezava med Nebom in Zemljo. Predstavlja duhovnega vodnika, tistega, ki stoji pokončno, a se ne zlomi v vetru. Trs te uči integritete, notranje moči in svetega prostora doma. Vabi te, da gradiš tempelj svoje duše – prostor, kjer se srečujeta zemeljsko in božansko. Tvoje življenje je sveti oltar.💫 Spoznaj svojo kozmično smer.", "Ix (Jaguar) 🐆 Moč, skrivnost, preobrazba. Ix je skrivnostna moč noči in varuh svetih krajev. Je ženski duh, šamanka, tista, ki hodi med svetovi. Jaguar te uči, da moč prihaja iz tišine in da resnična magija ne potrebuje besed. Varuje tiste, ki hodijo pot svetlobe. Ko si v prisotnosti jaguarja, si v središču svojega templja – sveti in svoboden.💫 Vstopi v globine svoje duše.", "Men (Orel) 🦅 Vizija, višina, jasnost. Men je vizionar, ki vidi širšo sliko. Zmore leteti visoko nad zemljo, da razume tokove časa in usode. Orel te uči modrosti perspektive, poguma in notranje jasnosti. Dvigni svoj pogled – tam, kjer drugi vidijo omejitve, ti vidiš poti svetlobe. Ko pogledaš skozi oči orla, vidiš, da je vse mogoče.💫 Tvoja knjiga Tzolkin razkrije več. Naroči jo zdaj.", "Cib (Jastreb) 🦅 Modrost, učenje, cikli življenja. Cib je modrost prednikov, tihi glas večnosti, ki govori skozi intuicijo. Sova je čuvaj skrivnosti, ki razume cikle smrti in ponovnega rojstva. Uči te, da resnična modrost ni v znanju, temveč v razumevanju. Cib te vabi, da oprostiš – sebi in drugim – saj se tako osvobodiš vezi časa in odpreš vrata razsvetljenja. 💫 Preberi svoje sporočilo v e-knjigi. Naroči jo zdaj.", "Caban (Zemlja) 🌍 Povezanost, tok, premik. Caban je mati Zemlja, rdeča boginja gibanja in evolucije. V sebi nosi srčni utrip planeta in nas spominja, da smo vsi eno telo. Zemlja te uči usklajenosti z naravnimi cikli, z ritmom srca in kozmičnim pulzom. Hoditi v skladu z Zemljo pomeni hoditi v skladu z Resnico. Poslušaj njeno pesem – govori ti skozi veter, drevo in kamen. 💫 Razumi svoj ritem v knjigi duše.", "Etz’nab (Kremen) 🔪 Resnica, jasnost, odsev. Etznab je svetlobni meč resnice. V njem se vse razkrije – brez iluzij, brez mask. Ogledalo te uči jasnosti in poguma, da pogledaš vase in vidiš, kdo resnično si. To je dan razsvetljenja, ko se vse, kar ni resnično, razblini. Etznab prinaša čisto zavedanje, da je svet odsev tvoje notranjosti. Kar vidiš, to si. 💫 Naroči svojo Tzolkin knjigo zdaj.", "Kawak (Nevihta) ⛈ Čiščenje, sprememba, preporod. Cauac je grom, blisk, prenova. Prinaša očiščenje, duhovno preobrazbo in razsvetljenje. Ko pride nevihta, se nebo razpoči, a le zato, da se svet rodi v novi svetlobi. Cauac te uči, da so tvoje krize posvečen ogenj – ogenj, ki te preobraža v tisto, kar si v resnici. Ne boj se spremembe, ona je tvoj prerod.💫 Odkleni svojo moč v branju.", "Ajaw (Sonce) ☀️ Svetloba, vodenje, prebujenje. Ahau je razsvetljenje, zavedanje, Ljubezen sama. Je kralj med znaki in utelešenje božanske svetlobe. Sonce te spomni, da si ti žarek Stvarnika – da si popoln, svet in sijoč. Vabi te, da deliš svojo svetlobo brez strahu, saj s tem prebujaš druge. Dan Sonca je dan enosti, ko se spomnimo, da smo vsi eno Sonce v različnih oblikah.💫 Odkrij svojo pot svetlobe. Naroči si svojo personalizirano Tzolkin knjigo zdaj."];
+
+// GLAVNA FUNKCIJA
+function calculateSoulFrequency() {
+    const fullName = document.getElementById("fullName").value.trim();
+    const birthDate = document.getElementById("birthDate").value;
+    const email = document.getElementById("email").value.trim();
+    const gdprChecked = document.getElementById("gdprConsent").checked;
+    const resultDiv = document.getElementById("result");
+
+    if (!fullName || !birthDate || !email || !gdprChecked) {
+        alert("Prosimo, izpolni vsa polja in potrdi soglasje.");
+        return;
+    }
+
+    saveEmail(email);
+
+    const kin = calculateTzolkinKin(birthDate);
+    const tone = ((kin - 1) % 13) + 1;
+    const sign = ((kin - 1) % 20) + 1;
+
+    const toneText = tzolkinNumbers[tone - 1];
+    const toneImg = tzolkinNumberImages[tone - 1];
+    const signText = tzolkinSigns[sign - 1];
+    const signImg = tzolkinSignImages[sign - 1];
+    const signDesc = tzolkinSignDescriptions[sign - 1] || "";
+
+    resultDiv.innerHTML = `
+        <p class="kin-number">Tvoj Kin: <strong>${kin}</strong></p>
+        <img src="${toneImg}" alt="Število ${tone}" class="number-img">
+        <p class="frequency">${toneText}</p>
+        <img src="${signImg}" alt="${signText}" class="sign-img">
+        <h3>${signText}</h3>
+        <p>${signDesc}</p>
+    `;
+
+    resultDiv.classList.add("show");
+}
+
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('sw.js').then(
+      reg => console.log('Service Worker registered!', reg),
+      err => console.log('Service Worker registration failed:', err)
+    );
+  });
+}
+</script>
+
+</body>
+</html>
