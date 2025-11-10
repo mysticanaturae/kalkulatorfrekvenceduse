@@ -172,14 +172,15 @@ button:hover { background-color: #ffaa33; }
 
 @media (max-width: 768px) {
     .container {
-        flex-direction: column;
+        flex-direction: column; /* Stolpci navpično */
         gap: 20px;
         padding: 10px;
+        align-items: stretch; /* Stolpci naj zavzamejo celotno širino */
     }
 
     .column {
-        width: 100%;
-        min-width: auto;
+        width: 100%;           /* Stolpci zavzamejo celotno širino */
+        min-width: auto;       /* Odstrani minimalno širino za desktop */
         padding: 20px;
         border-radius: 15px;
         background-color: #fff4e6;
@@ -189,7 +190,7 @@ button:hover { background-color: #ffaa33; }
         position: relative;
     }
 
-    /* Sredinski stolpec: kalkulator hero */
+    /* Sredinski stolpec: kalkulator */
     .column.calculator {
         background-color: #ffe6cc;
         box-shadow: 0 12px 30px rgba(179, 92, 0, 0.3);
@@ -199,18 +200,19 @@ button:hover { background-color: #ffaa33; }
         border: 2px solid #b35c00;
     }
 
-    /* levi in desni stolpec dobi subtilno manjšo barvo in shadow */
+    /* Levi in desni stolpec dobi subtilno manjšo barvo in shadow */
     .container > .column:not(.calculator) {
         opacity: 0.75;
         transform: scale(0.98);
     }
 
-    /* Inputi in gumbi večji za mobilne naprave */
+    /* Večji inputi in gumbi za mobilne naprave */
     .column.calculator input,
     .column.calculator button {
         font-size: 18px;
         padding: 15px;
     }
+}
 
     /* Parallax efekt: lebdeči stolpci pri scrollanju */
     .column[data-scroll] {
