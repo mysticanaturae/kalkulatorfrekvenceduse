@@ -158,6 +158,18 @@ button:hover { background-color: #ffaa33; }
   50% { transform: translate(10px,-20px) scale(0.8); opacity: 0.5; }
   100% { transform: translate(-10px,-40px) scale(1); opacity: 0; }
 }
+
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+        gap: 15px;
+        padding: 10px;
+    }
+    .column {
+        min-width: auto;
+        padding: 15px;
+    }
+}
 </style>
 </head>
 <body>
