@@ -4,177 +4,252 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Kalkulator Frekvence Duše</title>
-<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#b35c00">
+<link rel="icon" href="icon-192.png" type="image/png">
+
 <style>
-  body {
-    margin: 0;
+@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap');
+
+:root {
+    --day-color: #ffe6cc;     /* jutranja svetloba */
+    --noon-color: #ffd699;    /* dopoldanska toplina */
+    --evening-color: #ffcc99; /* večerna energija */
+    --night-color: #b35c00;   /* nočna mističnost */
+}
+
+.column {
+    background: linear-gradient(145deg, var(--day-color), var(--noon-color));
+    transition: background 1s linear;
+}
+
+body {
     font-family: 'Arial', sans-serif;
-    background: radial-gradient(circle at top, #0a0a1a, #1b1b2f);
-    color: #f0f0f0;
-    overflow-x: hidden;
-  }
-
-  .container {
-    max-width: 480px;
-    margin: 0 auto;
+    background-color: #fff4e6;
+    color: #5a3e1b;
+    margin: 0;
     padding: 20px;
-    text-align: center;
-    position: relative;
-    z-index: 2;
-  }
+}
 
-  h1 {
+.container {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+
+.column {
+    background-color: #ffe6cc;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    flex: 1;
+    min-width: 250px;
+    box-sizing: border-box;
+}
+
+.column h3 {
     font-family: 'Great Vibes', cursive;
-    font-size: 2.5em;
+    color: #b35c00;
     margin-bottom: 10px;
-    color: #ffd700;
-    text-shadow: 0 0 15px #ffd700;
-  }
+}
 
-  input, button {
+.column p {
+    margin-bottom: 10px;
+    line-height: 1.5;
+}
+
+.calculator h1 {
+    text-align: center;
+    font-family: 'Great Vibes', cursive;
+    font-size: 36px;
+    color: #b35c00;
+    margin-bottom: 5px;
+}
+
+.calculator h2 {
+    text-align: center;
+    color: #804000;
+    font-size: 16px;
+    margin-bottom: 20px;
+}
+
+label {
+    font-weight: bold;
+}
+
+input[type="text"], input[type="date"], input[type="email"] {
+    width: 100%;
+    padding: 10px;
+    margin: 7px 0;
+    border-radius: 8px;
+    border: 1px solid #b35c00;
+    font-size: 14px;
+    box-sizing: border-box;
+}
+
+button {
     width: 100%;
     padding: 12px;
-    margin: 8px 0;
-    border-radius: 10px;
+    margin: 12px 0;
+    border-radius: 8px;
     border: none;
-    font-size: 1em;
-  }
-
-  input {
-    background: rgba(255,255,255,0.1);
-    color: #fff;
-  }
-
-  button {
-    background: linear-gradient(45deg, #ff9a00, #ff2a68);
-    color: #fff;
-    cursor: pointer;
-    transition: transform 0.2s ease;
-  }
-
-  button:hover {
-    transform: scale(1.05);
-  }
-
-  #result {
-    margin-top: 30px;
-    display: none;
-    text-align: center;
-    animation: fadeIn 1s forwards;
-  }
-
-  #result.show {
-    display: block;
-  }
-
-  .kin-number {
-    font-size: 1.5em;
+    background-color: #ffb366;
+    color: #5a3e1b;
     font-weight: bold;
-    margin: 10px 0;
-    color: #00ffd5;
-    text-shadow: 0 0 10px #00ffd5;
-  }
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+button:hover { background-color: #ffaa33; }
 
-  .frequency {
-    font-style: italic;
-    margin: 10px 0;
-    color: #ff9a00;
-    text-shadow: 0 0 10px #ff9a00;
-  }
-
-  img.number-img, img.sign-img {
-    max-width: 150px;
-    margin: 15px 0;
-    border-radius: 50%;
-    box-shadow: 0 0 30px #fff;
-    transition: transform 2s ease;
-    animation: float 6s ease-in-out infinite;
-  }
-
-  p {
-    line-height: 1.6;
-  }
-
-  /* Floating animation */
-  @keyframes float {
-    0% { transform: translateY(0px); }
-    50% { transform: translateY(-15px); }
-    100% { transform: translateY(0px); }
-  }
-
-  /* Fade in */
-  @keyframes fadeIn {
-    0% { opacity: 0; transform: scale(0.9); }
-    100% { opacity: 1; transform: scale(1); }
-  }
-
-  /* Star dust effect */
-  .stars {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 200%;
-    height: 200%;
-    background: transparent;
-    pointer-events: none;
-    z-index: 1;
-  }
-
-.stars-container {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  z-index: 0; /* pod vsemi elementi */
-  overflow: hidden;
+.result {
+    margin-top: 20px;
+    background-color: #fff0e0;
+    padding: 20px;
+    border-radius: 12px;
+    text-align: center;
+    opacity: 0;
+    transform: translateY(-20px);
+    transition: all 0.5s ease-in-out;
 }
 
-  .star {
+.result.show { 
+    opacity: 1; 
+    transform: translateY(0); 
+}
+
+.kin-number { font-size: 18px; color: #d1642b; }
+.frequency { font-size: 16px; margin-bottom: 10px; }
+.result img.number-img, .result img.sign-img { width: 50px; height: 50px; margin: 10px auto; display: block; }
+
+.gdpr { margin-top: 10px; font-size: 13px; }
+.gdpr input { margin-right: 5px; }
+
+.result .fade-slide {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.8s ease-out;
+  position: relative;
+}
+
+.result.show .fade-slide {
+  opacity: 1;
+  transform: translateY(0) scale(1.05);
+}
+
+.result .number-img, .result .sign-img {
+  animation: float 3s ease-in-out infinite alternate;
+  box-shadow: 0 0 20px rgba(255, 200, 150, 0.5);
+}
+
+@keyframes float {
+  0% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-10px) scale(1.05); }
+  100% { transform: translateY(0) scale(1); }
+}
+
+.result h3, .result p {
+  text-shadow: 0 0 10px rgba(255, 255, 200, 0.5);
+}
+
+.star-dust {
   position: absolute;
-  background: white;
+  width: 4px;
+  height: 4px;
+  background: radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(255,255,255,0) 70%);
   border-radius: 50%;
+  pointer-events: none;
   opacity: 0.8;
-  animation-name: twinkle;
-  animation-iteration-count: infinite;
-  animation-timing-function: ease-in-out;
+  animation: drift linear infinite;
 }
 
-@keyframes twinkle {
-  0%, 100% { opacity: 0.3; transform: scale(0.8);}
-  50% { opacity: 1; transform: scale(1.2);}
+@keyframes drift {
+  0% { transform: translate(0,0) scale(1); opacity: 0.8; }
+  50% { transform: translate(10px,-20px) scale(0.8); opacity: 0.5; }
+  100% { transform: translate(-10px,-40px) scale(1); opacity: 0; }
 }
 
-  /* Parallax background */
-  .parallax {
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    background-image: url('https://i.ibb.co/7nG3kP6/nebula.jpg'); /* zamenjaj z svojo sliko */
-    background-size: cover;
-    background-position: center;
-    z-index: 0;
-    transform: translateZ(0);
-    will-change: transform;
-    opacity: 0.6;
-  }
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+        gap: 20px;
+        padding: 10px;
+    }
+
+    .column {
+        width: 100%;
+        min-width: auto;
+        padding: 20px;
+        border-radius: 15px;
+        background-color: #fff4e6;
+        box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+        transition: transform 0.5s ease, opacity 0.5s ease;
+        opacity: 0.85;
+        position: relative;
+    }
+
+    /* Sredinski stolpec: kalkulator hero */
+    .column.calculator {
+        background-color: #ffe6cc;
+        box-shadow: 0 12px 30px rgba(179, 92, 0, 0.3);
+        transform: scale(1.05);
+        opacity: 1;
+        z-index: 10;
+        border: 2px solid #b35c00;
+    }
+
+    /* levi in desni stolpec dobi subtilno manjšo barvo in shadow */
+    .container > .column:not(.calculator) {
+        opacity: 0.75;
+        transform: scale(0.98);
+    }
+
+    /* Inputi in gumbi večji za mobilne naprave */
+    .column.calculator input,
+    .column.calculator button {
+        font-size: 18px;
+        padding: 15px;
+    }
+
+    /* Parallax efekt: lebdeči stolpci pri scrollanju */
+    .column[data-scroll] {
+        will-change: transform;
+    }
+}
+
+.column {
+        position: relative;
+        overflow: hidden;
+    }
+
+    /* Svetlobni gradient layer */
+    .column::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(circle at 50% 50%, rgba(255,255,255,0.2), transparent 60%);
+        pointer-events: none;
+        opacity: 0.6;
+        transition: opacity 0.3s ease, transform 0.3s ease;
+        z-index: 5;
+    }
+
+    .column.calculator::before {
+        background: radial-gradient(circle at 50% 50%, rgba(255,200,150,0.3), transparent 70%);
+        opacity: 0.9;
+    }
+}
+
+.column::before {
+    transform: translateY(var(--scrollY, 0));
+}
 </style>
 </head>
 <body>
-
-<div id="stars" class="stars-container"></div>
-<div class="parallax"></div>
-<div class="stars" id="stars"></div>
-
-<div class="container">
-  <h1>Kalkulator Frekvence Duše</h1>
-  <input type="text" id="name" placeholder="Vnesi svoje ime">
-  <input type="date" id="birthdate" placeholder="Vnesi datum rojstva">
-  <button id="calculateBtn">Izračunaj KIN</button>
-
-  <div id="result"></div>
-</div>
 
 <div class="container">
     <!-- LEVI STOLPEC -->
@@ -267,54 +342,7 @@ const tzolkinNumberImages = [
 const tzolkinSignDescriptions = [
 "Imix (Krokodil) 🌊 Energija začetkov, vode in stvarstva. Imix je prva iskra stvarstva, kozmična maternica, iz katere se rodi vse življenje. Predstavlja začetek, instinkt, in notranjo moč preživetja. V tebi prebudi praiskonski spomin na izvor – tisti trenutek, ko se zavest prvič zave sebe. Dan Krokodila te uči, da zaupaš svojemu instinktu in prisluhneš telesu. Ustvari temelje za novo stvaritev, neguj svoje korenine in spoštuj prvinsko življenje v sebi. Si izvir življenja, intuicije in novih ciklov. 💫 Za osebno Tzolkin knjigo klikni in naroči zdaj.", "Ik’ (Veter) 🌬 Dih navdiha, komunikacije in gibanja. Ik’ je dih duha, božanski vdih in izdih, ki oživlja vse, kar obstaja. To je sveti dih komunikacije, resnice in božanskega prenosa. Duh vetra te spodbuja, da izraziš svojo resnico z milino, a tudi s pogumom. Govori, piši, poj – izrazi, kar teče skozi tebe, kajti tvoj glas je orodje zdravljenja sveta. Ik’ te uči poslušati glas vesolja. 💫 Spoznaj svojo pot v osebni knjigi Tzolkin.", "Akbal (Noč) 🌌 Varuh sanj in skrivnosti. Ak’bal odpira vrata med svetovi. Je tema, iz katere se rodi svetloba. Prinaša sanje, skrivnosti in notranji mir. Je čas, da se obrneš vase in z zaupanjem stopiš v tišino, kjer tvoj notranji svet spregovori. Noč te uči, da so tvoje sanje zemljevid tvoje duše – da so vrata v tvojo lastno svetiščino. Akbal osvetli tvojo notranjo temo. 💫 Za celotno branje naroči svojo e-knjigo.", "Kan (Seme) 🌱 Energija rasti in manifestacije. Kan je seme življenja, ustvarjalna moč narave. Predstavlja plodnost, potencial in rast. V tebi je seme svetlobe, ki čaka na pravi trenutek, da se prebudi. Dan Koruze te vabi, da neguješ svoje namene z ljubeznijo, potrpežljivostjo in zaupanjem v proces. Vse, kar poseješ, se bo nekoč razcvetelo. V tebi spi potencial stvarjenja. 💫 Prebudi ga v osebnem branju.", "Chicchan (Kača) 🐍 Življenjska sila, preobrazba in moč. Chicchan je življenjska energija – kundalini, svetloba, ki se dviga skozi tvojo hrbtenico. Je instinktivna, čutna in preobrazbena. Kača te uči, da se spustiš v telo in začutiš življenje v vsej njegovi moči. Prebuja vitalnost, strast in modrost telesa. V njej se skriva preobrazba – stara koža se naj zlevi, da se rodi nova resnica. 💫 Odkleni svojo energijo v osebni Tzolkin knjigi. Naroči jo zdaj", "Cimi (Smrt) 💀 Prehod, osvoboditev, preporod. 💫 Cimi je mojster prehoda, spremembe in ponovnega rojstva. Simbolizira konec, ki je le začetek novega cikla. Uči te, da spustiš, kar ni več tvoje, da lahko svobodno vstopiš v naslednjo fazo svoje duše. V smrti ni teme, le preobrazba. Cimi te spomni, da je življenje neskončno in da se vse rojeva znova. Rodi se znova – tvoja knjiga Tzolkin te vodi.", "Manik’ (Jelen) 🦌 Zdravljenje, narava, ravnovesje. Manik’ nosi moč zdravilca in mirnega bojevnika. Njegova srčna moč je sočutje in nežna vztrajnost. Jelen je tisti, ki zdravi z dotikom, s prisotnostjo, z odprtim srcem. Povezuje zemljo in nebo skozi sveto delo. Dnevi Jelena te spominjajo, da si tudi ti zdravilec – skozi svoje roke, besede in namen. 💫 Odkrij več v osebni knjigi Tzolkin.", "Lamat (Zvezda) ⭐ Lepota, harmonija, umetnost. Lamat je kozmična lepota, svetloba, ki se množi. Je simbol plodnosti, umetnosti in harmonije. Zvezda te uči, da si ustvarjalno bitje – da tvoj sij sije daleč preko časa. Tvoje delo, tvoje misli, tvoja lepota so žarek, ki zdravi. Neguj umetnost življenja in bodi zvezda, ki navdihuje druge. 💫 Naroči svojo osebno e-knjigo.", "Muluk (Voda) 💧 Čustva, intuicija, očiščenje. Muluc je sveta voda – čustva, očiščenje, darovanje. Voda te povezuje s spominom na sveti krog življenja, z močjo sočutja in hvaležnosti. Uči te, da solze niso šibkost, temveč blagoslov. Daj, kar si prejel, in sprejmi, kar ti življenje vrača. Pretok čustev je zdravilo za dušo. 💫 Razumi svoj tok v osebnem branju.", "Ok (Pes) 🐕 Ljubezen, zvestoba, srce. Oc je zvestoba, ljubezen in srčna resnica. Je varuh prijateljstva in čistega odnosa med ljudmi. Pes te uči brezpogojne ljubezni, odanosti in integritete. V njem prebiva zvesti duh, ki te vodi skozi pot srca. Vztrajaj v ljubezni – tudi, ko svet pozabi na nežnost. 💫 Naroči svojo osebno knjigo duše.", "Chuwen (Opica) 🙈 Ustvarjalnost, humor, igra. Chuen je božanska umetnica, otrok vesolja in tkalka časa. V njenih rokah so niti stvarstva, ki jih prepleta s smehom, igro in ustvarjalnostjo. Opica te spomni, da življenje ni boj, temveč ples radosti. Uči te igrivosti, spontanosti in modrosti trenutka. Ko se zasmejiš sebi, postaneš svoboden, ko ustvarjaš iz srca – si v stiku z Bogom v sebi.💫 Tvoja knjiga Tzolkin te čaka. Naorči jo zdaj. ", "Eb (Človek) 🧍‍♂️ Zavest, svobodna volja, pot. Eb je sveta pot življenja, cesta, po kateri hodi tvoja duša. Predstavlja človeško izkušnjo – radost, preizkušnje, rast in prebuditev. Uči te, da je tvoja pot sveta in da vsaka stopinja nosi modrost. Eb te vabi, da hodiš z odprtim srcem in zavedanjem, da si popotnik med svetovi. Vsaka tvoja odločitev ustvarja prihodnost človeštva. 💫 Odkleni svojo pot v osebni e-knjigi.", "Ben (Trs) 🌾 Rast, vizija, usmerjenost. Ben je steber svetlobe, povezava med Nebom in Zemljo. Predstavlja duhovnega vodnika, tistega, ki stoji pokončno, a se ne zlomi v vetru. Trs te uči integritete, notranje moči in svetega prostora doma. Vabi te, da gradiš tempelj svoje duše – prostor, kjer se srečujeta zemeljsko in božansko. Tvoje življenje je sveti oltar.💫 Spoznaj svojo kozmično smer.", "Ix (Jaguar) 🐆 Moč, skrivnost, preobrazba. Ix je skrivnostna moč noči in varuh svetih krajev. Je ženski duh, šamanka, tista, ki hodi med svetovi. Jaguar te uči, da moč prihaja iz tišine in da resnična magija ne potrebuje besed. Varuje tiste, ki hodijo pot svetlobe. Ko si v prisotnosti jaguarja, si v središču svojega templja – sveti in svoboden.💫 Vstopi v globine svoje duše.", "Men (Orel) 🦅 Vizija, višina, jasnost. Men je vizionar, ki vidi širšo sliko. Zmore leteti visoko nad zemljo, da razume tokove časa in usode. Orel te uči modrosti perspektive, poguma in notranje jasnosti. Dvigni svoj pogled – tam, kjer drugi vidijo omejitve, ti vidiš poti svetlobe. Ko pogledaš skozi oči orla, vidiš, da je vse mogoče.💫 Tvoja knjiga Tzolkin razkrije več. Naroči jo zdaj.", "Cib (Jastreb) 🦅 Modrost, učenje, cikli življenja. Cib je modrost prednikov, tihi glas večnosti, ki govori skozi intuicijo. Sova je čuvaj skrivnosti, ki razume cikle smrti in ponovnega rojstva. Uči te, da resnična modrost ni v znanju, temveč v razumevanju. Cib te vabi, da oprostiš – sebi in drugim – saj se tako osvobodiš vezi časa in odpreš vrata razsvetljenja. 💫 Preberi svoje sporočilo v e-knjigi. Naroči jo zdaj.", "Caban (Zemlja) 🌍 Povezanost, tok, premik. Caban je mati Zemlja, rdeča boginja gibanja in evolucije. V sebi nosi srčni utrip planeta in nas spominja, da smo vsi eno telo. Zemlja te uči usklajenosti z naravnimi cikli, z ritmom srca in kozmičnim pulzom. Hoditi v skladu z Zemljo pomeni hoditi v skladu z Resnico. Poslušaj njeno pesem – govori ti skozi veter, drevo in kamen. 💫 Razumi svoj ritem v knjigi duše.", "Etz’nab (Kremen) 🔪 Resnica, jasnost, odsev. Etznab je svetlobni meč resnice. V njem se vse razkrije – brez iluzij, brez mask. Ogledalo te uči jasnosti in poguma, da pogledaš vase in vidiš, kdo resnično si. To je dan razsvetljenja, ko se vse, kar ni resnično, razblini. Etznab prinaša čisto zavedanje, da je svet odsev tvoje notranjosti. Kar vidiš, to si. 💫 Naroči svojo Tzolkin knjigo zdaj.", "Kawak (Nevihta) ⛈ Čiščenje, sprememba, preporod. Cauac je grom, blisk, prenova. Prinaša očiščenje, duhovno preobrazbo in razsvetljenje. Ko pride nevihta, se nebo razpoči, a le zato, da se svet rodi v novi svetlobi. Cauac te uči, da so tvoje krize posvečen ogenj – ogenj, ki te preobraža v tisto, kar si v resnici. Ne boj se spremembe, ona je tvoj prerod.💫 Odkleni svojo moč v branju.", "Ajaw (Sonce) ☀️ Svetloba, vodenje, prebujenje. Ahau je razsvetljenje, zavedanje, Ljubezen sama. Je kralj med znaki in utelešenje božanske svetlobe. Sonce te spomni, da si ti žarek Stvarnika – da si popoln, svet in sijoč. Vabi te, da deliš svojo svetlobo brez strahu, saj s tem prebujaš druge. Dan Sonca je dan enosti, ko se spomnimo, da smo vsi eno Sonce v različnih oblikah.💫 Odkrij svojo pot svetlobe. Naroči si svojo personalizirano Tzolkin knjigo zdaj."];
 
-// Star-dust animacija
-const starsContainer = document.getElementById("stars");
-for (let i = 0; i < 150; i++) {
-  const star = document.createElement("div");
-  star.classList.add("star");
-  star.style.top = Math.random() * 100 + "%";
-  star.style.left = Math.random() * 100 + "%";
-  star.style.width = star.style.height = Math.random() * 3 + 1 + "px";
-  star.style.animationDuration = 1 + Math.random() * 3 + "s";
-  starsContainer.appendChild(star);
-}
-
-// Parallax efekti stolpcev
-const columns = document.querySelectorAll('.column');
-window.addEventListener('scroll', () => {
-    const scrollTop = window.pageYOffset;
-    columns.forEach((col, index) => {
-        if (!col.classList.contains('calculator')) {
-            col.style.transform = `translateY(${scrollTop * 0.05 * (index+1)}px) scale(0.98)`;
-        } else {
-            col.style.transform = `translateY(${scrollTop * 0.02}px) scale(1.05)`;
-        }
-    });
-});
-
-// Dinamične barve stolpcev
-function updateColumnColors() {
-    const hour = new Date().getHours();
-    let startColor, endColor;
-
-    if (hour >= 6 && hour < 12) {
-        startColor = '#ffe6cc'; endColor = '#ffd699';
-    } else if (hour >= 12 && hour < 18) {
-        startColor = '#ffd699'; endColor = '#ffb366';
-    } else if (hour >= 18 && hour < 21) {
-        startColor = '#ffcc99'; endColor = '#b35c00';
-    } else {
-        startColor = '#b35c00'; endColor = '#804000';
-    }
-
-    document.querySelectorAll('.column').forEach(col => {
-        col.style.background = `linear-gradient(145deg, ${startColor}, ${endColor})`;
-    });
-}
-updateColumnColors();
-setInterval(updateColumnColors, 60000);
-
-// GLAVNA FUNKCIJA kalkulatorja
+// GLAVNA FUNKCIJA
 function calculateSoulFrequency() {
     const fullName = document.getElementById("fullName").value.trim();
     const birthDate = document.getElementById("birthDate").value;
@@ -351,8 +379,81 @@ function calculateSoulFrequency() {
 }
 
 function saveEmail(email) {
+    // Za zdaj samo log v konzolo
     console.log("Email shranjen:", email);
+    // Kasneje lahko dodaš pošiljanje v bazo ali API
 }
+</script>
+
+<!-- Script za registracijo Service Workerja -->
+    <script>
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('sw.js')
+  .then(reg => console.log('Service Worker registriran:', reg.scope))
+  .catch(err => console.log('Service Worker napaka:', err));
+}
+
+// Parallax efekti stolpcev na scroll
+const columns = document.querySelectorAll('.column');
+
+window.addEventListener('scroll', () => {
+    const scrollTop = window.pageYOffset;
+    columns.forEach((col, index) => {
+        // Levi in desni stolpec rahlo premaknemo
+        if (!col.classList.contains('calculator')) {
+            col.style.transform = `translateY(${scrollTop * 0.05 * (index+1)}px) scale(0.98)`;
+        } else {
+            // Sredinski kalkulator rahlo lebdi
+            col.style.transform = `translateY(${scrollTop * 0.02}px) scale(1.05)`;
+        }
+    });
+});
+
+const columnsWithLight = document.querySelectorAll('.column');
+
+window.addEventListener('scroll', () => {
+    const scrollTop = window.pageYOffset;
+    columnsWithLight.forEach((col, index) => {
+        // Premik gradienta rahlo gor-dol
+        const beforeLayer = col.querySelector('::before');
+        // Ker pseudo-elementov ne moremo direktno v JS, uporabimo transform na cel stolpec
+        col.style.setProperty('--scrollY', `${scrollTop * 0.05 * (index+1)}px`);
+
+        // Dodaj transform za lebdenje stolpcev
+        if (!col.classList.contains('calculator')) {
+            col.style.transform = `translateY(${scrollTop * 0.05 * (index+1)}px) scale(0.98)`;
+        } else {
+            col.style.transform = `translateY(${scrollTop * 0.02}px) scale(1.05)`;
+        }
+    });
+});
+
+function updateColumnColors() {
+    const hour = new Date().getHours();
+    let startColor, endColor;
+
+    if (hour >= 6 && hour < 12) { // jutro
+        startColor = '#ffe6cc';
+        endColor = '#ffd699';
+    } else if (hour >= 12 && hour < 18) { // popoldan
+        startColor = '#ffd699';
+        endColor = '#ffb366';
+    } else if (hour >= 18 && hour < 21) { // večer
+        startColor = '#ffcc99';
+        endColor = '#b35c00';
+    } else { // noč
+        startColor = '#b35c00';
+        endColor = '#804000';
+    }
+
+    document.querySelectorAll('.column').forEach(col => {
+        col.style.background = `linear-gradient(145deg, ${startColor}, ${endColor})`;
+    });
+}
+
+// Začetni klic in interval za dinamično spremembo
+updateColumnColors();
+setInterval(updateColumnColors, 60000); // posodablja vsako minuto
 
 </script>
 
