@@ -170,49 +170,39 @@ button:hover { background-color: #ffaa33; }
   100% { transform: translate(-10px,-40px) scale(1); opacity: 0; }
 }
 
-@media (max-width: 768px) {
+   @media (max-width: 768px) {
     .container {
-        flex-direction: column; /* Stolpci navpično */
-        gap: 20px;
+        display: block; /* PREKLJUČIMO FLEX na block za navpično postavitev */
+        gap: 20px;      /* razmik med stolpci */
         padding: 10px;
-        align-items: stretch; /* Stolpci naj zavzamejo celotno širino */
     }
 
     .column {
-        width: 100%;           /* Stolpci zavzamejo celotno širino */
-        min-width: auto;       /* Odstrani minimalno širino za desktop */
+        display: block;      /* vsak stolpec na svoji vrstici */
+        width: 100%;         /* zavzame celotno širino */
+        min-width: auto;     /* odstrani minimalno širino */
+        margin-bottom: 20px; /* razmik spodaj */
         padding: 20px;
         border-radius: 15px;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.2);
         background-color: #fff4e6;
-        box-shadow: 0 3px 10px rgba(0,0,0,0.05);
-        transition: transform 0.5s ease, opacity 0.5s ease;
-        opacity: 0.85;
-        position: relative;
     }
 
-    /* Sredinski stolpec: kalkulator */
     .column.calculator {
         background-color: #ffe6cc;
         box-shadow: 0 12px 30px rgba(179, 92, 0, 0.3);
         transform: scale(1.05);
-        opacity: 1;
-        z-index: 10;
         border: 2px solid #b35c00;
     }
 
-    /* Levi in desni stolpec dobi subtilno manjšo barvo in shadow */
-    .container > .column:not(.calculator) {
-        opacity: 0.75;
-        transform: scale(0.98);
-    }
-
-    /* Večji inputi in gumbi za mobilne naprave */
+    /* Večji inputi in gumbi */
     .column.calculator input,
     .column.calculator button {
         font-size: 18px;
         padding: 15px;
     }
 }
+
 
     /* Parallax efekt: lebdeči stolpci pri scrollanju */
     .column[data-scroll] {
