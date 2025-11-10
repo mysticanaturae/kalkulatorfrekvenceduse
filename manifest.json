@@ -3,7 +3,9 @@
   "short_name": "FrekvencaDuše",
   "description": "Odkrij svojo osebno Tzolkin frekvenco in KIN.",
   "start_url": "./index.html",
+  "scope": "./",
   "display": "standalone",
+  "orientation": "portrait",
   "background_color": "#fff4e6",
   "theme_color": "#b35c00",
   "icons": [
