@@ -160,30 +160,6 @@ button:hover { background-color: #ffaa33; }
 </head>
 <body>
 
-<!-- VIDEO INTRO -->
-<div id="intro" style="position: relative; width: 100%; max-width: 800px; margin: auto;">
-    <video id="myVideo" playsinline loop style="width: 100%;">
-        <source src="https://video.wixstatic.com/video/7535eb_bfbe8fb4e3774f6f849d94ab23258cc9/720p/mp4/file.mp4" type="video/mp4">
-        Your browser does not support the video tag.
-    </video>
-
-    <!-- Play gumb -->
-    <button id="playButton" style="
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        padding: 15px 30px;
-        font-size: 18px;
-        background-color: rgba(0,0,0,0.6);
-        color: white;
-        border: none;
-        border-radius: 8px;
-        cursor: pointer;
-    ">Play Video with Sound</button>
-</div>
-
-<!-- GLAVNA VSEBINA -->
 <div class="container">
     <!-- LEVI STOLPEC -->
     <div class="column">
@@ -222,46 +198,6 @@ button:hover { background-color: #ffaa33; }
 </div>
 
 <script>
-<!-- VIDEO INTRO -->
-<div id="intro" style="position:relative;">
-    <video id="myVideo" autoplay muted loop playsinline style="width:100%; height:auto;">
-        <source src="https://video.wixstatic.com/video/7535eb_bfbe8fb4e3774f6f849d94ab23258cc9/720p/mp4/file.mp4" type="video/mp4">
-        Your browser does not support the video tag.
-    </video>
-
-    <!-- Gumb za vklop zvoka -->
-    <button id="playButton" style="position:absolute; bottom:20px; left:20px; z-index:10;">Vklopi zvok</button>
-
-    <!-- Gumb za zapiranje videa -->
-    <button id="closeButton" style="position:absolute; top:20px; right:20px; z-index:10;">X</button>
-</div>
-
-<script>
-const intro = document.getElementById('intro');
-const video = document.getElementById('myVideo');
-const playButton = document.getElementById('playButton');
-const closeButton = document.getElementById('closeButton');
-
-// Video predvaja v loopu, zvok sprva izklopljen
-video.muted = true;
-video.autoplay = true;
-video.loop = true;
-video.play();
-
-// Ko uporabnik klikne gumb, se zvok vklopi
-playButton.addEventListener('click', () => {
-    video.muted = false;
-    video.play();
-    playButton.style.display = 'none';
-});
-
-// Ko uporabnik klikne "X", video počasi zbledi in se skrije
-closeButton.addEventListener('click', () => {
-    intro.style.transition = "opacity 1s ease";
-    intro.style.opacity = 0;
-    setTimeout(() => { intro.style.display = 'none'; }, 1000);
-});
-
 // IZRAČUN KIN
 function calculateTzolkinKin(dateInput) {
     var dateParts = dateInput.split("-");
@@ -315,7 +251,7 @@ const tzolkinNumberImages = [
 const tzolkinSignDescriptions = [
 "Imix (Krokodil) 🌊 Energija začetkov, vode in stvarstva. Imix je prva iskra stvarstva, kozmična maternica, iz katere se rodi vse življenje. Predstavlja začetek, instinkt, in notranjo moč preživetja. V tebi prebudi praiskonski spomin na izvor – tisti trenutek, ko se zavest prvič zave sebe. Dan Krokodila te uči, da zaupaš svojemu instinktu in prisluhneš telesu. Ustvari temelje za novo stvaritev, neguj svoje korenine in spoštuj prvinsko življenje v sebi. Si izvir življenja, intuicije in novih ciklov. 💫 Za osebno Tzolkin knjigo klikni in naroči zdaj.", "Ik’ (Veter) 🌬 Dih navdiha, komunikacije in gibanja. Ik’ je dih duha, božanski vdih in izdih, ki oživlja vse, kar obstaja. To je sveti dih komunikacije, resnice in božanskega prenosa. Duh vetra te spodbuja, da izraziš svojo resnico z milino, a tudi s pogumom. Govori, piši, poj – izrazi, kar teče skozi tebe, kajti tvoj glas je orodje zdravljenja sveta. Ik’ te uči poslušati glas vesolja. 💫 Spoznaj svojo pot v osebni knjigi Tzolkin.", "Akbal (Noč) 🌌 Varuh sanj in skrivnosti. Ak’bal odpira vrata med svetovi. Je tema, iz katere se rodi svetloba. Prinaša sanje, skrivnosti in notranji mir. Je čas, da se obrneš vase in z zaupanjem stopiš v tišino, kjer tvoj notranji svet spregovori. Noč te uči, da so tvoje sanje zemljevid tvoje duše – da so vrata v tvojo lastno svetiščino. Akbal osvetli tvojo notranjo temo. 💫 Za celotno branje naroči svojo e-knjigo.", "Kan (Seme) 🌱 Energija rasti in manifestacije. Kan je seme življenja, ustvarjalna moč narave. Predstavlja plodnost, potencial in rast. V tebi je seme svetlobe, ki čaka na pravi trenutek, da se prebudi. Dan Koruze te vabi, da neguješ svoje namene z ljubeznijo, potrpežljivostjo in zaupanjem v proces. Vse, kar poseješ, se bo nekoč razcvetelo. V tebi spi potencial stvarjenja. 💫 Prebudi ga v osebnem branju.", "Chicchan (Kača) 🐍 Življenjska sila, preobrazba in moč. Chicchan je življenjska energija – kundalini, svetloba, ki se dviga skozi tvojo hrbtenico. Je instinktivna, čutna in preobrazbena. Kača te uči, da se spustiš v telo in začutiš življenje v vsej njegovi moči. Prebuja vitalnost, strast in modrost telesa. V njej se skriva preobrazba – stara koža se naj zlevi, da se rodi nova resnica. 💫 Odkleni svojo energijo v osebni Tzolkin knjigi. Naroči jo zdaj", "Cimi (Smrt) 💀 Prehod, osvoboditev, preporod. 💫 Cimi je mojster prehoda, spremembe in ponovnega rojstva. Simbolizira konec, ki je le začetek novega cikla. Uči te, da spustiš, kar ni več tvoje, da lahko svobodno vstopiš v naslednjo fazo svoje duše. V smrti ni teme, le preobrazba. Cimi te spomni, da je življenje neskončno in da se vse rojeva znova. Rodi se znova – tvoja knjiga Tzolkin te vodi.", "Manik’ (Jelen) 🦌 Zdravljenje, narava, ravnovesje. Manik’ nosi moč zdravilca in mirnega bojevnika. Njegova srčna moč je sočutje in nežna vztrajnost. Jelen je tisti, ki zdravi z dotikom, s prisotnostjo, z odprtim srcem. Povezuje zemljo in nebo skozi sveto delo. Dnevi Jelena te spominjajo, da si tudi ti zdravilec – skozi svoje roke, besede in namen. 💫 Odkrij več v osebni knjigi Tzolkin.", "Lamat (Zvezda) ⭐ Lepota, harmonija, umetnost. Lamat je kozmična lepota, svetloba, ki se množi. Je simbol plodnosti, umetnosti in harmonije. Zvezda te uči, da si ustvarjalno bitje – da tvoj sij sije daleč preko časa. Tvoje delo, tvoje misli, tvoja lepota so žarek, ki zdravi. Neguj umetnost življenja in bodi zvezda, ki navdihuje druge. 💫 Naroči svojo osebno e-knjigo.", "Muluk (Voda) 💧 Čustva, intuicija, očiščenje. Muluc je sveta voda – čustva, očiščenje, darovanje. Voda te povezuje s spominom na sveti krog življenja, z močjo sočutja in hvaležnosti. Uči te, da solze niso šibkost, temveč blagoslov. Daj, kar si prejel, in sprejmi, kar ti življenje vrača. Pretok čustev je zdravilo za dušo. 💫 Razumi svoj tok v osebnem branju.", "Ok (Pes) 🐕 Ljubezen, zvestoba, srce. Oc je zvestoba, ljubezen in srčna resnica. Je varuh prijateljstva in čistega odnosa med ljudmi. Pes te uči brezpogojne ljubezni, odanosti in integritete. V njem prebiva zvesti duh, ki te vodi skozi pot srca. Vztrajaj v ljubezni – tudi, ko svet pozabi na nežnost. 💫 Naroči svojo osebno knjigo duše.", "Chuwen (Opica) 🙈 Ustvarjalnost, humor, igra. Chuen je božanska umetnica, otrok vesolja in tkalka časa. V njenih rokah so niti stvarstva, ki jih prepleta s smehom, igro in ustvarjalnostjo. Opica te spomni, da življenje ni boj, temveč ples radosti. Uči te igrivosti, spontanosti in modrosti trenutka. Ko se zasmejiš sebi, postaneš svoboden, ko ustvarjaš iz srca – si v stiku z Bogom v sebi.💫 Tvoja knjiga Tzolkin te čaka. Naorči jo zdaj. ", "Eb (Človek) 🧍‍♂️ Zavest, svobodna volja, pot. Eb je sveta pot življenja, cesta, po kateri hodi tvoja duša. Predstavlja človeško izkušnjo – radost, preizkušnje, rast in prebuditev. Uči te, da je tvoja pot sveta in da vsaka stopinja nosi modrost. Eb te vabi, da hodiš z odprtim srcem in zavedanjem, da si popotnik med svetovi. Vsaka tvoja odločitev ustvarja prihodnost človeštva. 💫 Odkleni svojo pot v osebni e-knjigi.", "Ben (Trs) 🌾 Rast, vizija, usmerjenost. Ben je steber svetlobe, povezava med Nebom in Zemljo. Predstavlja duhovnega vodnika, tistega, ki stoji pokončno, a se ne zlomi v vetru. Trs te uči integritete, notranje moči in svetega prostora doma. Vabi te, da gradiš tempelj svoje duše – prostor, kjer se srečujeta zemeljsko in božansko. Tvoje življenje je sveti oltar.💫 Spoznaj svojo kozmično smer.", "Ix (Jaguar) 🐆 Moč, skrivnost, preobrazba. Ix je skrivnostna moč noči in varuh svetih krajev. Je ženski duh, šamanka, tista, ki hodi med svetovi. Jaguar te uči, da moč prihaja iz tišine in da resnična magija ne potrebuje besed. Varuje tiste, ki hodijo pot svetlobe. Ko si v prisotnosti jaguarja, si v središču svojega templja – sveti in svoboden.💫 Vstopi v globine svoje duše.", "Men (Orel) 🦅 Vizija, višina, jasnost. Men je vizionar, ki vidi širšo sliko. Zmore leteti visoko nad zemljo, da razume tokove časa in usode. Orel te uči modrosti perspektive, poguma in notranje jasnosti. Dvigni svoj pogled – tam, kjer drugi vidijo omejitve, ti vidiš poti svetlobe. Ko pogledaš skozi oči orla, vidiš, da je vse mogoče.💫 Tvoja knjiga Tzolkin razkrije več. Naroči jo zdaj.", "Cib (Jastreb) 🦅 Modrost, učenje, cikli življenja. Cib je modrost prednikov, tihi glas večnosti, ki govori skozi intuicijo. Sova je čuvaj skrivnosti, ki razume cikle smrti in ponovnega rojstva. Uči te, da resnična modrost ni v znanju, temveč v razumevanju. Cib te vabi, da oprostiš – sebi in drugim – saj se tako osvobodiš vezi časa in odpreš vrata razsvetljenja. 💫 Preberi svoje sporočilo v e-knjigi. Naroči jo zdaj.", "Caban (Zemlja) 🌍 Povezanost, tok, premik. Caban je mati Zemlja, rdeča boginja gibanja in evolucije. V sebi nosi srčni utrip planeta in nas spominja, da smo vsi eno telo. Zemlja te uči usklajenosti z naravnimi cikli, z ritmom srca in kozmičnim pulzom. Hoditi v skladu z Zemljo pomeni hoditi v skladu z Resnico. Poslušaj njeno pesem – govori ti skozi veter, drevo in kamen. 💫 Razumi svoj ritem v knjigi duše.", "Etz’nab (Kremen) 🔪 Resnica, jasnost, odsev. Etznab je svetlobni meč resnice. V njem se vse razkrije – brez iluzij, brez mask. Ogledalo te uči jasnosti in poguma, da pogledaš vase in vidiš, kdo resnično si. To je dan razsvetljenja, ko se vse, kar ni resnično, razblini. Etznab prinaša čisto zavedanje, da je svet odsev tvoje notranjosti. Kar vidiš, to si. 💫 Naroči svojo Tzolkin knjigo zdaj.", "Kawak (Nevihta) ⛈ Čiščenje, sprememba, preporod. Cauac je grom, blisk, prenova. Prinaša očiščenje, duhovno preobrazbo in razsvetljenje. Ko pride nevihta, se nebo razpoči, a le zato, da se svet rodi v novi svetlobi. Cauac te uči, da so tvoje krize posvečen ogenj – ogenj, ki te preobraža v tisto, kar si v resnici. Ne boj se spremembe, ona je tvoj prerod.💫 Odkleni svojo moč v branju.", "Ajaw (Sonce) ☀️ Svetloba, vodenje, prebujenje. Ahau je razsvetljenje, zavedanje, Ljubezen sama. Je kralj med znaki in utelešenje božanske svetlobe. Sonce te spomni, da si ti žarek Stvarnika – da si popoln, svet in sijoč. Vabi te, da deliš svojo svetlobo brez strahu, saj s tem prebujaš druge. Dan Sonca je dan enosti, ko se spomnimo, da smo vsi eno Sonce v različnih oblikah.💫 Odkrij svojo pot svetlobe. Naroči si svojo personalizirano Tzolkin knjigo zdaj."];
 
-// GLAVNA FUNKCIJA Z MISTIČNIM EFEKTOM
+// GLAVNA FUNKCIJA
 function calculateSoulFrequency() {
     const fullName = document.getElementById("fullName").value.trim();
     const birthDate = document.getElementById("birthDate").value;
@@ -338,20 +274,17 @@ function calculateSoulFrequency() {
     const toneImg = tzolkinNumberImages[tone-1];
     const signText = tzolkinSigns[sign-1];
     const signImg = tzolkinSignImages[sign-1];
-    const signDesc = tzolkinSignDescriptions[sign-1] || "";
+    const signDesc = tzolkinSignDescriptions[sign-1];
 
     resultDiv.innerHTML = `
-        <p class="kin-number fade-slide">Tvoj Kin: <strong>${kin}</strong></p>
-        <img src="${toneImg}" alt="Število ${tone}" class="number-img fade-slide">
-        <p class="frequency fade-slide">${toneText}</p>
-        <img src="${signImg}" alt="${signText}" class="sign-img fade-slide">
-        <p class="frequency fade-slide"><strong>${signText}</strong>: ${signDesc}</p>
+        <h3>Draga ${fullName},</h3>
+        <p class="kin-number">Tvoj KIN: ${kin}</p>
+        <img src="${toneImg}" class="number-img" alt="Tone">
+        <p class="frequency">${toneText}</p>
+        <img src="${signImg}" class="sign-img" alt="Znak">
+        <p>${signDesc}</p>
     `;
-
-    // trigger animacije
-    setTimeout(() => {
-        resultDiv.classList.add('show');
-    }, 50);
+    resultDiv.classList.add("show");
 }
 </script>
 
