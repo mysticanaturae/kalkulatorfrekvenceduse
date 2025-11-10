@@ -1,6 +1,6 @@
 const STATIC_CACHE = 'frekvenca-duse-static-v1';
 const DYNAMIC_CACHE = 'frekvenca-duse-dynamic-v1';
-const DYNAMIC_CACHE_LIMIT = 30; // največ 30 datotek (slik/mp3)
+const DYNAMIC_CACHE_LIMIT = 30;
 
 const staticAssets = [
   './',
@@ -10,17 +10,15 @@ const staticAssets = [
   './icon-512.png'
 ];
 
-// Funkcija za omejitev velikosti cache
 const limitCacheSize = async (cacheName, maxItems) => {
   const cache = await caches.open(cacheName);
   const keys = await cache.keys();
   if (keys.length > maxItems) {
     await cache.delete(keys[0]);
-    limitCacheSize(cacheName, maxItems); // rekurzivno dokler ni pod limitom
+    limitCacheSize(cacheName, maxItems);
   }
 };
 
-// INSTALL - cache static assets
 self.addEventListener('install', event => {
   event.waitUntil(
     caches.open(STATIC_CACHE)
@@ -29,7 +27,6 @@ self.addEventListener('install', event => {
   );
 });
 
-// ACTIVATE - clear old caches
 self.addEventListener('activate', event => {
   event.waitUntil(
     caches.keys().then(keys => {
@@ -41,7 +38,6 @@ self.addEventListener('activate', event => {
   );
 });
 
-// FETCH - static first, potem dynamic za slike/MP3 z omejitvijo
 self.addEventListener('fetch', event => {
   const request = event.request;
 
@@ -54,7 +50,6 @@ self.addEventListener('fetch', event => {
           return networkResponse;
         }
 
-        // Only cache images and mp3 dynamically
         if (request.destination === 'image' || request.url.endsWith('.mp3')) {
           const responseClone = networkResponse.clone();
           caches.open(DYNAMIC_CACHE).then(cache => {
@@ -65,7 +60,6 @@ self.addEventListener('fetch', event => {
 
         return networkResponse;
       }).catch(() => {
-        // Offline fallback for documents
         if (request.destination === 'document') {
           return caches.match('./index.html');
         }

@@ -1,14 +1,14 @@
 {
+  "id": "/kalkulatorfrekvenceduse/index.html",
   "name": "Kalkulator Frekvence Duše",
   "short_name": "FrekvencaDuše",
   "description": "Odkrij svojo osebno Tzolkin frekvenco in KIN.",
-  "start_url": "/kalkulatorfrekvenceduse/index.html",
-"scope": "/kalkulatorfrekvenceduse/",
+  "start_url": "./index.html",
+  "scope": "./",
   "display": "standalone",
   "orientation": "portrait",
   "background_color": "#fff4e6",
   "theme_color": "#b35c00",
-  "id": "./index.html",
   "icons": [
     {
       "src": "icon-192.png",
@@ -22,3 +22,4 @@
     }
   ]
 }
+
