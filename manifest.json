@@ -1,7 +1,10 @@
 {
-  "id": "/kalkulatorfrekvenceduse/index.html",
   "name": "Kalkulator Frekvence Duše",
-  "short_name": "TzolkinDuše",
+  "short_name": "SoulCalc",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#fff4e6",
+  "theme_color": "#b35c00",
   "icons": [
     {
       "src": "icon-192.png",
@@ -14,9 +17,17 @@
       "type": "image/png"
     }
   ],
-  "start_url": "/index.html",
-  "display": "standalone",
-  "background_color": "#b35c00",
-  "theme_color": "#b35c00"
+  "screenshots": [
+    {
+      "src": "screenshot-desktop.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "form_factor": "wide"
+    },
+    {
+      "src": "screenshot-mobile.png",
+      "sizes": "375x667",
+      "type": "image/png"
+    }
+  ]
 }
-
