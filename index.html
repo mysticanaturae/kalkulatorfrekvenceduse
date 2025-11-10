@@ -11,6 +11,17 @@
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap');
 
+:root {
+    --day-color: #ffe6cc;     /* jutranja svetloba */
+    --noon-color: #ffd699;    /* dopoldanska toplina */
+    --evening-color: #ffcc99; /* večerna energija */
+    --night-color: #b35c00;   /* nočna mističnost */
+}
+
+.column {
+    background: linear-gradient(145deg, var(--day-color), var(--noon-color));
+    transition: background 1s linear;
+}
 
 body {
     font-family: 'Arial', sans-serif;
@@ -162,13 +173,79 @@ button:hover { background-color: #ffaa33; }
 @media (max-width: 768px) {
     .container {
         flex-direction: column;
-        gap: 15px;
+        gap: 20px;
         padding: 10px;
     }
+
     .column {
+        width: 100%;
         min-width: auto;
+        padding: 20px;
+        border-radius: 15px;
+        background-color: #fff4e6;
+        box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+        transition: transform 0.5s ease, opacity 0.5s ease;
+        opacity: 0.85;
+        position: relative;
+    }
+
+    /* Sredinski stolpec: kalkulator hero */
+    .column.calculator {
+        background-color: #ffe6cc;
+        box-shadow: 0 12px 30px rgba(179, 92, 0, 0.3);
+        transform: scale(1.05);
+        opacity: 1;
+        z-index: 10;
+        border: 2px solid #b35c00;
+    }
+
+    /* levi in desni stolpec dobi subtilno manjšo barvo in shadow */
+    .container > .column:not(.calculator) {
+        opacity: 0.75;
+        transform: scale(0.98);
+    }
+
+    /* Inputi in gumbi večji za mobilne naprave */
+    .column.calculator input,
+    .column.calculator button {
+        font-size: 18px;
         padding: 15px;
     }
+
+    /* Parallax efekt: lebdeči stolpci pri scrollanju */
+    .column[data-scroll] {
+        will-change: transform;
+    }
+}
+
+.column {
+        position: relative;
+        overflow: hidden;
+    }
+
+    /* Svetlobni gradient layer */
+    .column::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(circle at 50% 50%, rgba(255,255,255,0.2), transparent 60%);
+        pointer-events: none;
+        opacity: 0.6;
+        transition: opacity 0.3s ease, transform 0.3s ease;
+        z-index: 5;
+    }
+
+    .column.calculator::before {
+        background: radial-gradient(circle at 50% 50%, rgba(255,200,150,0.3), transparent 70%);
+        opacity: 0.9;
+    }
+}
+
+.column::before {
+    transform: translateY(var(--scrollY, 0));
 }
 </style>
 </head>
@@ -315,6 +392,69 @@ if ('serviceWorker' in navigator) {
   .then(reg => console.log('Service Worker registriran:', reg.scope))
   .catch(err => console.log('Service Worker napaka:', err));
 }
+
+// Parallax efekti stolpcev na scroll
+const columns = document.querySelectorAll('.column');
+
+window.addEventListener('scroll', () => {
+    const scrollTop = window.pageYOffset;
+    columns.forEach((col, index) => {
+        // Levi in desni stolpec rahlo premaknemo
+        if (!col.classList.contains('calculator')) {
+            col.style.transform = `translateY(${scrollTop * 0.05 * (index+1)}px) scale(0.98)`;
+        } else {
+            // Sredinski kalkulator rahlo lebdi
+            col.style.transform = `translateY(${scrollTop * 0.02}px) scale(1.05)`;
+        }
+    });
+});
+
+const columnsWithLight = document.querySelectorAll('.column');
+
+window.addEventListener('scroll', () => {
+    const scrollTop = window.pageYOffset;
+    columnsWithLight.forEach((col, index) => {
+        // Premik gradienta rahlo gor-dol
+        const beforeLayer = col.querySelector('::before');
+        // Ker pseudo-elementov ne moremo direktno v JS, uporabimo transform na cel stolpec
+        col.style.setProperty('--scrollY', `${scrollTop * 0.05 * (index+1)}px`);
+
+        // Dodaj transform za lebdenje stolpcev
+        if (!col.classList.contains('calculator')) {
+            col.style.transform = `translateY(${scrollTop * 0.05 * (index+1)}px) scale(0.98)`;
+        } else {
+            col.style.transform = `translateY(${scrollTop * 0.02}px) scale(1.05)`;
+        }
+    });
+});
+
+function updateColumnColors() {
+    const hour = new Date().getHours();
+    let startColor, endColor;
+
+    if (hour >= 6 && hour < 12) { // jutro
+        startColor = '#ffe6cc';
+        endColor = '#ffd699';
+    } else if (hour >= 12 && hour < 18) { // popoldan
+        startColor = '#ffd699';
+        endColor = '#ffb366';
+    } else if (hour >= 18 && hour < 21) { // večer
+        startColor = '#ffcc99';
+        endColor = '#b35c00';
+    } else { // noč
+        startColor = '#b35c00';
+        endColor = '#804000';
+    }
+
+    document.querySelectorAll('.column').forEach(col => {
+        col.style.background = `linear-gradient(145deg, ${startColor}, ${endColor})`;
+    });
+}
+
+// Začetni klic in interval za dinamično spremembo
+updateColumnColors();
+setInterval(updateColumnColors, 60000); // posodablja vsako minuto
+
 </script>
 
 </body>
