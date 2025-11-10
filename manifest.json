@@ -1,10 +1,13 @@
 {
   "name": "Kalkulator Frekvence Duše",
-  "short_name": "SoulCalc",
-  "start_url": ".",
+  "short_name": "Frekvenca Duše",
+  "description": "Odkrij svojo dušno vibracijo in kozmično frekvenco znotraj Poti Duše. Aplikacija, ki združuje astrologijo, svetlobo in duhovno modrost.",
+  "lang": "sl",
+  "start_url": "./index.html",
   "display": "standalone",
-  "background_color": "#fff4e6",
+  "background_color": "#fdf7f2",
   "theme_color": "#b35c00",
+  "orientation": "portrait",
   "icons": [
     {
       "src": "icon-192.png",
@@ -15,19 +18,11 @@
       "src": "icon-512.png",
       "sizes": "512x512",
       "type": "image/png"
-    }
-  ],
-  "screenshots": [
-    {
-      "src": "screenshot-desktop.png",
-      "sizes": "1280x720",
-      "type": "image/png",
-      "form_factor": "wide"
     },
     {
-      "src": "screenshot-mobile.png",
-      "sizes": "375x667",
-      "type": "image/png"
+      "src": "favicon.ico",
+      "sizes": "64x64 32x32 24x24 16x16",
+      "type": "image/x-icon"
     }
   ]
 }
