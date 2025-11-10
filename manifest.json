@@ -18,11 +18,29 @@
       "src": "icon-512.png",
       "sizes": "512x512",
       "type": "image/png"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "screenshot-desktop.png",
+      "sizes": "1024x768",
+      "type": "image/png",
+      "label": "Desktop view",
+      "form_factor": "wide"
     },
     {
-      "src": "favicon.ico",
-      "sizes": "64x64 32x32 24x24 16x16",
-      "type": "image/x-icon"
+      "src": "screenshot-mobile.jpg",
+      "sizes": "375x667",
+      "type": "image/jpeg",
+      "label": "Mobile view"
     }
-  ]
+  ],
+  "protocol_handlers": [
+    {
+      "protocol": "web+frekvenca",
+      "url": "./index.html?open=%s"
+    }
+  ],
+  "display_overrides": ["window-controls-overlay"]
 }
+
